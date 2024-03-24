@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.BoardDao">
+	<select id="findAll" resultType="map"> 
+	<![CDATA[
+		select * from
+		(
+			select rownum as rnum, b.* from 
+			(
+				select /*+ index_desc(board board_pk_bno)*/ bno, title, writer, write_time, read_cnt from board
+			) b
+			where rownum<=#{endRownum}
+		)
+		where rnum>=#{startRownum}
+	]]>
+	</select>
+	
+
+	<insert id="save">
+		<selectKey keyProperty="bno" resultType="long" order="BEFORE">
+			select board_seq.nextval from dual
+		</selectKey>
+		insert into board values(#{bno}, #{title}, #{content}, #{writer}, sysdate, 0, 0, 0)
+	</insert>	
+</mapper>
