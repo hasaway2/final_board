@@ -6,15 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/main.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-	const msg = '${msg}';
-	console.log(msg);
-	if(msg!=='')
-		alert(msg);
-</script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
 	<div id="page">
@@ -29,7 +24,6 @@
 				<jsp:include page="/WEB-INF/view/include/aside.jsp" />
 			</aside>
 			<section>
-				<p>루트 페이지입니다</p>
 			</section>
 			<aside>
 				<jsp:include page="/WEB-INF/view/include/aside.jsp" />

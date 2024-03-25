@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const username1 = 'spring111111';
+
+    const regExp = /[0-9a-z]{6,10}/;
+    
+    // regExp은 숫자와 소문자 6~10자
+    // username1은 숫자와 소문자 6~10자를 포함하기 때문에 true
+    console.log(regExp.test(username1));
+  </script>
+</body>
+</html>

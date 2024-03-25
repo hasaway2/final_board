@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const username1 = 'spring';
+    const username2 = 'Spring';
+
+    // {최소길이, 최대길이}
+    const regExp = /[0-9a-z]{6,10}/;
+    
+    console.log(regExp.test(username1));
+    console.log(regExp.test(username2));
+  </script>
+</body>
+</html>

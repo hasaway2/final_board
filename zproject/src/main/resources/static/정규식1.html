@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    
+    const value1 = '1234';
+    const value2 = 'abcd';
+
+    // 정규식(Regular Expression) : 문자열의 패턴을 지정하는 표현언어
+    // []는 입력가능한 문자의 범위를 지정
+    const regExp = /[0-9]/;
+    
+    console.log(regExp.test(value1));
+    console.log(regExp.test(value2));
+  </script>
+</body>
+</html>
