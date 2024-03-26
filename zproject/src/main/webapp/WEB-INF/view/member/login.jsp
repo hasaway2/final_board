@@ -5,11 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-const msg = '${msg}';
-if(msg!=='')
-	alert(msg);
-</script>
 </head>
 <body>
 	<form action="/member/login" method="post">

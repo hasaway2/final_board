@@ -20,100 +20,105 @@
 		reader.readAsDataURL(profile);
 	}
 
-	const patterns = {
-    username: [/^[A-Za-z0-9]{6,10}$/, '아이디는 영숫자 6~10자입니다'],
-    password: [/^[A-Za-z0-9]{8,10}$/, '비밀번호는 영숫자 8~10자입니다'],
+  const ar = {
+    username:[/^[A-Za-z0-9]{6,10}$/, '영숫자 6~10자입니다'],
+    password:[/^[A-Za-z0-9]{8,10}$/, '영숫자 8~10자입니다'],
     email:[/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i, '잘못된 이메일입니다'],
-		birthday: [/.+/, '필수입력입니다']
+    birthday:[/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, '잘못된 날짜입니다']
   }
 
-	function usernameCheck() {
-		const $element = $('#username');
-		const value = $element.val();
-		$element.next().text('');
-		if(patterns.username[0].test(value)==false) {
-			$element.next().text(patterns.username[1]).addClass('error');
-			return false;
+	// await를 사용하면 함수에 async를 붙여야한다
+  async function usernameCheck() {
+    const $element = $('#username');
+    $element.next().text('');
+    const value = $element.val();
+    // 패턴비교
+    if(ar.username[0].test(value)==false) {
+      $element.next().text(ar.username[1]).attr('class', 'error')
+      return false;
+    }
+    
+    try {
+    	await $.ajax('/member/id-check?username=' + value);
+    	$element.next().text('사용가능합니다').attr('class', 'success');
+    	return true;
+    } catch {
+			$element.next().text('사용중인 아이디입니다').attr('class', 'error');
+			return false
 		}
-		
-		$.ajax({
-			url: '/member/id-check',
-			data: 'username=' + value,
-			success:function() {
-				$element.next().text('사용할 수 있습니다');
-				return true;
-			}, error:function() {
-				$element.next().text('사용중인 아이디입니다').addClass('error');
-				return false;
-			}
-		});			
-	}
+  }
 
-	function passwordCheck() {
-		const $element = $('#password');
-		const value = $element.val();
-		$element.next().text('');
+  function passwordCheck() {
+    const $element = $('#password');
+    $element.next().text('');
+    const value = $element.val();
 
-		if(patterns.password[0].test(value)==false) {
-			$element.next().text(patterns.password[1]).addClass('error');
-			return false;
-		}
-		return true;
-	}
+    if(ar.password[0].test(value)==false) {
+      $element.next().text(ar.password[1]).attr('class', 'error');
+      return false;
+    }
+    return true;
+  }
 
-	function password2Check() {
-		const $password = $('#password');
-		const $element = $('#password2');
-		$element.next().text('');
+  function password2Check() {
+    const password = $('#password').val();
+    const $element = $('#password2');
+    $element.next().text('');
+    const value = $element.val();
 
-		if($element.val()==='') {
-		  $element.next().text('확인을 위해 새비밀번호를 다시 입력해주세요').addClass('error');
-		  return false;
-	  }
-		if($password.val()!==$element.val()) {
-			$element.next().text('새비밀번호가 일치하지 않습니다').addClass('error');
-			return false;
-		}
-		return true;
-	}
+    if(password!==value) {
+      $element.next().text('새비밀번호가 일치하지 않습니다').attr('class', 'error');
+      return false;
+    }
+    return true;
+  }
 
-	function emailCheck() {
-		const $element = $('#email');
-		const value = $element.val();
-		$element.next().text('');
+  function emailCheck() {
+    const $element = $('#email');
+    $element.next().text('');
+    const value = $element.val();
 
-		if(patterns.email[0].test(value)==false) {
-			$element.next().text(patterns.email[1]).addClass('error');
-			return false;
-		}
-		return true;
-	}
+    if(ar.email[0].test(value)==false) {
+      $element.next().text(ar.email[1]).attr('class', 'error');
+      return false;
+    }
+    return true;
+  }
 
-	function birthdayCheck() {
-		const $element = $('#birthday');
-		const value = $element.val();
-		$element.next().text('');
+  function birthdayCheck() {
+    const $element = $('#birthday');
+    $element.next().text('');
+    const value = $element.val();
 
-		if(patterns.birthday[0].test(value)==false) {
-			$element.next().text(patterns.birthday[1]).addClass('error');
-			return false;
-		}
-		return true;
-	}
+    if(ar.birthday[0].test(value)==false) {
+      $element.next().text(ar.birthday[1]).attr('class', 'error');
+      return false;
+    }
+    return true;
+  }
 
-	$(document).ready(function() {
+  $(document).ready(function() {
+		// 사진을 선택하면(change) 출력해라 
 		$('#profile').on('change', showProfile);
 		
-		$('#username').on('blur', usernameCheck);
-		$('#password').on('blur', passwordCheck);
-		$('#password2').on('blur', password2Check);
-		$('#email').on('blur', emailCheck);
-		$('#birthday').on('blur', birthdayCheck);
+    $('#username').on('blur', usernameCheck);
+    $('#password').on('blur', passwordCheck);
+    $('#password2').on('blur', password2Check);
+    $('#email').on('blur', emailCheck);
+    $('#birthday').on('blur', birthdayCheck);
 
-		$('#join').on('click', function() {
-			const result = usernameCheck() && passwordCheck() && password2Check() && emailCheck() && birthdayCheck();
-			if(result==false)
-				return;
-			$('#join-form').submit();
-		})
-	})
+    $('#join').on('click', async function() {
+      const r1 = await usernameCheck();
+      const r2 = passwordCheck();
+      const r3 = password2Check();
+      const r4 = emailCheck();
+      const r5 = birthdayCheck();
+      const result = r1 && r2 && r3 && r4 && r5;
+      
+      if(result==false) {
+        return false;
+      }
+      
+			$('#join_form').submit();
+    })
+  })

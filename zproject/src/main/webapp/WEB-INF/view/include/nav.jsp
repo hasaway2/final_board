@@ -9,17 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-	$(document).ready(function() {
-		$('#logout').click(function(e) {
-			e.preventDefault();
-			const html = `
-				<form action="/member/logout" method="post">
-					<input type="hidden" name="_csrf" value="${_csrf.token}">
-				</form>
-			`;
-			$(html).appendTo($('body')).submit();
-		});
-	})
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -32,30 +21,30 @@
 			</div>
 			<ul class="navbar-nav" id="menu_parent">
 			<sec:authorize access="isAnonymous()">
+				 <!-- 비로그인인 경우 나타난다 -->
 				<li class="nav-item">
-					<a class="nav-link" href="/member/login">로그인</a>
+					<a href="/member/join" class="nav-link">회원가입</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/member/find">아이디/비밀번호 찾기</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/member/join">회원가입</a>
+					<a href="/member/login" class="nav-link">로그인</a>
 				</li>
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_USER')">
+			
+			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item">
-					<a class="nav-link" href='/member/read'>내정보</a>
+					<a href="/board/write" class="nav-link">글쓰기</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href='/board/write'>글쓰기</a>
+					<a href="/member/read" class="nav-link">내정보</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id='logout' href='#'>로그아웃</a>
+					<a href="/member/logout" class="nav-link">로그아웃</a>
 				</li>
 			</sec:authorize>
+			
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li>
-					<a class="dropdown-item" href="#">관리자 메뉴 </a>
+				<li class="nav-item">
+					<a href="#" class="nav-link">관리자 메뉴</a>
 				</li>
 			</sec:authorize>
 			</ul>
