@@ -43,3 +43,9 @@ Member-008. 회원 탈퇴(POST /member/quit)
 						
 Member-009. 로그인 - 스프링 시큐리티
 						- Member memberDao.findByUsername(String username);
+						
+Member-010. 프로필 보기(GET /profile/{image})
+						요청 파라미터 : 프로필 이미지 이름을 PathVariable로
+						응답 : ResponseEntity 
+						
+						

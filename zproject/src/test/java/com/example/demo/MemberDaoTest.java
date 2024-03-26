@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.*;
 
-import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.transaction.annotation.*;
 
 import com.example.demo.dao.*;
 import com.example.demo.entity.*;

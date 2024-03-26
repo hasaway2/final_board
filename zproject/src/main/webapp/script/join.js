@@ -96,7 +96,7 @@
     }
     return true;
   }
-
+		
   $(document).ready(function() {
 		// 사진을 선택하면(change) 출력해라 
 		$('#profile').on('change', showProfile);
@@ -118,7 +118,6 @@
       if(result==false) {
         return false;
       }
-      
 			$('#join_form').submit();
     })
   })
