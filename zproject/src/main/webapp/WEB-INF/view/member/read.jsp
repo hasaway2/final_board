@@ -37,7 +37,6 @@
 		$('#quit').on('click', function() {
 			const html = `
 				<form action="/member/quit" method="post">
-					<input type="hidden" name="_csrf" value="${_csrf.token}">
 				</form>
 			`;
 			$(html).appendTo($('body')).submit();

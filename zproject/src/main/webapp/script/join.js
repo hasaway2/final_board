@@ -39,10 +39,12 @@
     }
     
     try {
-    	await $.ajax('/member/id-check?username=' + value);
+    	const msg = await $.ajax('/member/id-check?username=' + value);
+    	alert(msg);
     	$element.next().text('사용가능합니다').attr('class', 'success');
     	return true;
-    } catch {
+    } catch(err) {
+			console.log(err);
 			$element.next().text('사용중인 아이디입니다').attr('class', 'error');
 			return false
 		}

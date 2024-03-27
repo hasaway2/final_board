@@ -96,5 +96,26 @@ public class MemberService {
 		Member member = memberDao.findByUsername(loginId);
 		return member==null? null:member.toDto();
 	}
+	
+	public Boolean changeEmail(String email, String loginId) {
+		Member member = memberDao.findByUsername(loginId);
+		if(member==null)
+			return false;
+		if(member.getUsername().equals(loginId)==false)
+			return false;
+		return memberDao.changeEmail(email, loginId)==1L;
+	}
+
+	public Boolean quit(String loginId) {
+		Member member = memberDao.findByUsername(loginId);
+		if(member==null)
+			return false;
+		String profile = member.getProfile();
+		String fileName = profile.substring(profile.lastIndexOf("/")+1);
+		File file = new File(PROFILE_FOLDER, fileName);
+		if(file.exists())
+			file.delete();
+		return memberDao.deleteByUsername(loginId)==1L;
+	}
 
 }

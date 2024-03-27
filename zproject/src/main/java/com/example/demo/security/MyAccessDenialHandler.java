@@ -15,8 +15,9 @@ import jakarta.servlet.http.*;
 public class MyAccessDenialHandler implements AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest req, HttpServletResponse res, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+		System.out.println("==========================================");
 		HttpSession session = req.getSession();
-		session.setAttribute("msg", "잘못된 접근입니다");
+		session.setAttribute("msg", "aaaaaaaaaaaaaaaaaa");
 		res.sendRedirect("/");
 	}
 }

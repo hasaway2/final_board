@@ -16,8 +16,6 @@ public class LoginFailureHanlder extends SimpleUrlAuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		HttpSession session = request.getSession();
-		session.setAttribute("msg", "로그인에 실패했습니다");
 		response.sendRedirect("/member/login");
 	}
 }
