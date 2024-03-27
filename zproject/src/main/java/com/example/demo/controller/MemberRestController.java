@@ -1,4 +1,4 @@
-tpackage com.example.demo.controller;
+package com.example.demo.controller;
 
 import java.io.*;
 import java.nio.file.*;
