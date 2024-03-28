@@ -10,14 +10,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="/script/join.js"></script>
+<title>Insert title here</title>
 <script>
+	// 에러메시지가 전달되면 alert창으로 출력한다 
+	// RedirectAttribute은 자동으로 jsp로 전달된다
 	const msg = '${msg}';
-	
 	if(msg!=='') {
-		alert(msg);
+		alert(msg)
 	}
 </script>
-<title>Insert title here</title>
 </head>
 <body>
 	<div id="page">
@@ -69,6 +70,7 @@
 					<div class="mb-3 mt-3 d-grid">
 						<button id="join" type="button" class="btn btn-primary btn-block">가입</button>
 					</div>
+					<input type="hidden" name="_csrf" value="${_csrf.token}">
 				</form>
 			</section>
 			<aside>

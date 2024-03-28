@@ -14,7 +14,7 @@
 $(document).ready(function() {
 	$("#find_id").on("click", function() {
 		$.ajax({
-			url: "/member/find-username?email="+$('#email').val(),
+			url: "/member/find-id?email="+$('#email').val(),
 			success:function(result) {
 				Swal.fire("아이디 찾기 성공", "당신의 아이디 : " + result, "success")
 			}, error:function(){

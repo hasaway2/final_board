@@ -26,7 +26,7 @@
 			<section>
 				<h1>비밀번호 확인</h1>
 				<div class="alert alert-warning">
-    			<strong>${msg }</strong> 
+    			<strong>${msg}</strong> 
   			</div>
 				<form action="/member/check-password" method="post">
 					<div class="mb-3 mt-3">

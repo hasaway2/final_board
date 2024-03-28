@@ -1,3 +1,4 @@
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -10,17 +11,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-	const msg = '${msg}';
-	if(msg!=='')
-		alert(msg);
-
-	$(document).ready(function() {
-		//$('#login-form').submit();
-		
-		$('#login').on('click', function() {
-			$('#login-form').submit();
-		});
-	})
+	$(function() {
+		if(location.search.length>0) {
+			$('#msg').css('display','block');
+		}		
+	});
 </script>
 <title>로그인</title>
 </head>
@@ -37,6 +32,9 @@
 				<jsp:include page="/WEB-INF/view/include/aside.jsp" />
 			</aside>
 			<section>
+				<div class="alert alert-danger" id="msg" style="display:none;">
+    			<strong>로그인에 실패했습니다</strong>
+  			</div>
 				<form action="/member/login" id="login-form" method="post">
 					<div class="mb-3 mt-3">
 						<label for="username" class="form-label">아이디:</label>
@@ -45,11 +43,11 @@
 					</div>
 					<div class="mb-3 mt-3">
 						<label for="password" class="form-label">비밀번호:</label>
-						<input type="password" class="form-control" id="password"	name="password" maxlength="10">
+						<input type="password" class="form-control" id="password"	name="password" maxlength="20">
 						<span class="message"></span>
 					</div>
 					<div class="mb-3 mt-3">
-						<button type="button" class="btn btn-primary" id="login">로그인</button>
+						<button class="btn btn-primary" id="login">로그인</button>
 					</div>
 					<input type="hidden" name="_csrf" value="${_csrf.token}">
 				</form>

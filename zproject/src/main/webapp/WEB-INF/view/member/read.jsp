@@ -10,38 +10,43 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-	const email = '${member.email}'
-	$(document).ready(function() {
-		$('#change-email').on('click', function() {
-			const newEmail = $('#email').val();
-			if(email===newEmail) {
-				alert('이메일 변경사항이 없습니다');
-				return false;
-			}
-			const params = {
-				_csrf: '${_csrf.token}',
-				email : newEmail
-			};
-			
-			$.ajax({
-				url: '/member/change-email',
-				method: 'post',
-				data: params,
-				success:function() {
-				}, error: function() {
-					alert('비밀번호를 변경하지 못했습니다 ');
-				}
-			});
-		});
+	$(function() {
+		// 자바스크립트에서 el에 접근하는 방법
+		const 원래이메일 = '${member.email}';
 		
-		$('#quit').on('click', function() {
+		$('#delete').on('click', function() {
 			const html = `
-				<form action="/member/quit" method="post">
+				<form action="/member/delete" method="post">
+					<input type='hidden' name='_csrf' value='${_csrf.token}'>
 				</form>
 			`;
 			$(html).appendTo($('body')).submit();
 		});
-	});
+		
+		$('#change-email').on('click', function() {
+			const 새이메일 = $('#email').val();
+			if(새이메일==원래이메일) {
+				alert("이메일 변경사항이 없습니다");
+				return false;
+			}
+			
+			// 서버로 넘기는 값들로 js객체를 만든다 
+			const params = {
+					email : 새이메일,
+					_csrf: '${_csrf.token}'
+			}
+			$.ajax({
+				url: '/member/change-email',
+				data: params,
+				method: 'post',
+				success:function() {
+					alert("이메일을 변경했습니다");
+				}, error:function() {
+					alert("이메일을 변경하지 못했습니다");
+				}
+			})
+		});
+	})
 </script>
 <title>내정보</title>
 </head>
@@ -70,10 +75,6 @@
 							</td>
 						</tr>
 						<tr>
-							<td>아이디</td>
-							<td>${member.username}</td>
-						</tr>
-						<tr>
 							<td>이메일</td>
 							<td>
 								<input type="email" id="email" name="email" value="${member.email}"> 
@@ -90,7 +91,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<button class="btn btn-outline-danger" id="quit">탈퇴</button>
+				<button class="btn btn-outline-danger" id="delete">탈퇴</button>
 			</section>
 			<aside>
 				<jsp:include page="/WEB-INF/view/include/aside.jsp" />

@@ -12,7 +12,7 @@ import jakarta.servlet.http.*;
 // 로그인 실패를 담당하는 객체
 
 @Component
-public class LoginFailureHanlder extends SimpleUrlAuthenticationFailureHandler {
+public class MyLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {

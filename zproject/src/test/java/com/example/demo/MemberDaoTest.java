@@ -53,8 +53,8 @@ public class MemberDaoTest {
 	
 	//@Test
 	public void deleteByUsernameTest() {
-		assertEquals(1L, memberDao.deleteByUsername("summer"));
-		assertEquals(1L, memberDao.deleteByUsername("spring"));
+		assertEquals(1L, memberDao.delete("summer"));
+		assertEquals(1L, memberDao.delete("spring"));
 	}
 	
 }

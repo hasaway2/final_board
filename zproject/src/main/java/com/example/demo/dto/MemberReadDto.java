@@ -4,14 +4,12 @@ import java.time.*;
 
 import lombok.*;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class MemberReadDto {
-	private String username;
 	private String email;
 	private LocalDate birthday;
 	private LocalDate joinday;
 	private Long days;
-	private String profile;	
-	private String role;
+	private String profile;
 }

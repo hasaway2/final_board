@@ -9,15 +9,17 @@ import org.springframework.stereotype.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
-// 403 오류를 처리를 담당하는 객체
+// AccessDeniedHandler : 인증 오류인 403에 대한 예외처리 담당
+// 스프링 시큐리티의 403처리, 로그인 성공, 로그인 실패 핸들러는 스프링이 아니라 자바 기반(컨트롤러가 아니다)
 
 @Component
 public class MyAccessDenialHandler implements AccessDeniedHandler {
 	@Override
-	public void handle(HttpServletRequest req, HttpServletResponse res, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		System.out.println("==========================================");
-		HttpSession session = req.getSession();
-		session.setAttribute("msg", "aaaaaaaaaaaaaaaaaa");
-		res.sendRedirect("/");
+	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+		if(request.getHeader("X-Requested-With")==null) {
+			response.sendRedirect("/");
+		} else {
+			response.sendError(409);
+		}
 	}
 }
